@@ -10,7 +10,7 @@ const localAuthRouter = require('./auth/local');
 const routes = (app) => {
   // api
   app.use('/api/users', userRouter);
-  app.use('/api/services', serviceRouter);
+  app.use('/api/payment', paymentRouter);
   app.use('/api/consulting', consultingRouter);
 
   // authorization

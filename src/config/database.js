@@ -5,7 +5,7 @@ let connection;
 const connect = async () => {
   if (connection) return;
 
-  const MONGO_URI = 'mongodb+srv://andreavargas18:1234@dbguardiansecurity.rj2yayo.mongodb.net/guardiansecurity';
+  const URI_MONGO = `${process.env.URL_MONGO_DB}`;
 
   connection = mongoose.connection;
 
@@ -21,7 +21,7 @@ const connect = async () => {
     console.log('Error connecting to MongoDB', error);
   });
 
-  await mongoose.connect(MONGO_URI);
+  await mongoose.connect(URI_MONGO);
 }
 
 module.exports = connect;

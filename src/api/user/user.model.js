@@ -1,6 +1,6 @@
 const { Schema, model, models } = require('mongoose');
 
-const emailRegex = new RegExp('[a-zA-Z0-9]{5,10}@[a-z]{3,10}.[a-z]{2,3}')
+const emailRegex = new RegExp('[a-zA-Z0-9]{5,10}@[a-z]{3,10}.com')
 
 const userSchema = new Schema(
   {
@@ -30,18 +30,13 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    role: {
-      type: String,
-      required: true,
-      default: 'USER',
-    },
     validateToken: {
       type: String,
       required: false,
     },
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },   
   },
   {

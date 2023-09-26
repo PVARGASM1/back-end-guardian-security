@@ -4,9 +4,9 @@ const getAllUsers = async () => {
   try {
     const users = await User.find()
       .select('name email')
-      .populate({
-        path: 'consulting service',
-      });
+      // .populate({
+      //   path: 'consulting',
+      // });
     return users;
   } catch (error) {
     throw new Error(error);
@@ -23,9 +23,9 @@ const getUserById = async (id) => {
   }
 }
 
-const getUserByUsername = async (username) => {
+const getUserByEmail = async (email) => {
   try {
-    const user = await User.findOne({ userName: username });
+    const user = await User.findOne({ email });
 
     return user;
   } catch (error) {
@@ -33,9 +33,9 @@ const getUserByUsername = async (username) => {
   }
 }
 
-const getUserByEmail = async (email) => {
+const getValidateToken = async (token) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ validateToken: token });
 
     return user;
   } catch (error) {
@@ -76,8 +76,8 @@ const deleteUser = async (id) => {
 module.exports = {
   getAllUsers,
   getUserById,
-  getUserByUsername,
   getUserByEmail,
+  getValidateToken,
   createUser,
   updateUser,
   deleteUser

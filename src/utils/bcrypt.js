@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 const hashPassword = async (password) => {
   const factor = 12;
@@ -7,12 +8,21 @@ const hashPassword = async (password) => {
   return hashedPassword;
 }
 
-const comparePassword = async (password, hashedPassword) => {
+const comparePassword = async (
+  password, 
+  hashedPassword
+) => {
   const match = await bcrypt.compare(password, hashedPassword);
   return match;
+}
+
+const createValidationToken = (data) => {
+  const validateToken = crypto.createHash('sha256').update(data).digest('hex');
+  return validateToken;
 }
 
 module.exports = {
   hashPassword,
   comparePassword,
+  createValidationToken
 }

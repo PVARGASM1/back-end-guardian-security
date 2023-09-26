@@ -8,6 +8,7 @@ const isAuthenticated = async (req, res, next) => {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
+  //verify token
   const decoded = verifyToken(token);
 
   if (!decoded) {

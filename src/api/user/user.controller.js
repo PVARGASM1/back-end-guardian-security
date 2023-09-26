@@ -1,11 +1,11 @@
- const { hashPassword } = require('../../utils/bcrypt.js');
+ const { hashPassword, createValidationToken } = require('../../utils/bcrypt.js');
 
 const {
   getAllUsers,
   getUserById,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
 } = require("./user.service");
 
 const getAllUsersHandler = async (_, res) => {
@@ -39,6 +39,8 @@ const createUserHandler = async (req, res) => {
     const newUser = {
       ...body,
       password: hashedPassword,
+     validateToken: createValidationToken(body.email),
+      tokenExpires: new Date(Date.now() + 1000 * 60 * 60 * 24), 
     }
 
     const user = await createUser(newUser);

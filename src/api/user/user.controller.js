@@ -39,8 +39,8 @@ const createUserHandler = async (req, res) => {
     const newUser = {
       ...body,
       password: hashedPassword,
-    //  validateToken: createValidationToken(body.email),
-    //   tokenExpires: new Date(Date.now() + 1000 * 60 * 60 * 24), 
+     validateToken: createValidationToken(body.email),
+      tokenExpires: new Date(Date.now() + 1000 * 60 * 60 * 24), 
     }
 
     const user = await createUser(newUser);
@@ -54,14 +54,16 @@ const createUserHandler = async (req, res) => {
 const updateUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, password } = req.body;
+    const { name, email, password, phone, address } = req.body;
 
     const newUser = {
       name,
       email,
       password,
+      phone,
+      address
     }
-
+    console.log(newUser);
     const updatedUser = await updateUser(id, newUser);
 
     res.status(201).json({ message: 'User was updated', user: updatedUser });

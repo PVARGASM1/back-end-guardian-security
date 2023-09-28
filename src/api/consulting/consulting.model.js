@@ -19,7 +19,7 @@ const consultingSchema = new Schema(
       minlength: [5, 'Name must be at least 5 characters long'],
       maxlength: [10, 'Name must be maximum 10 characters long'],
     },
-		menssage: {
+		message: {
 			type: String,
 			minlength: [1, 'Name must be at least 1 characters long'],
       maxlength: [100, 'Name must be maximum 100 characters long'],
@@ -30,7 +30,7 @@ const consultingSchema = new Schema(
 		},
     user: {
 			type: Schema.Types.ObjectId,
-			ref: 'User',
+			ref: 'user',
 			required: true
     }
   },

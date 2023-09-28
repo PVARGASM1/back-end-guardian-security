@@ -1,4 +1,5 @@
  const { hashPassword, createValidationToken } = require('../../utils/bcrypt.js');
+ const User = require('./user.model.js')
 
 const {
   getAllUsers,
@@ -22,7 +23,11 @@ const getUserByIdHandler = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const user = await getUserById(id);
+    const user = await User.findById(id)
+    .populate ({
+      path: 'consultings',
+      select: 'name company email phone message services user -_id createdAt updatedAt'
+    })
 
     res.status(200).json({ message: 'User found', user });
   } catch ({ message }) {

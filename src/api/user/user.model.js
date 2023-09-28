@@ -4,9 +4,9 @@ const emailRegex = new RegExp('[a-zA-Z0-9]{5,10}@[a-z]{3,10}.com')
 
 const userSchema = new Schema(
   {
-    _id:{
-      type: String,
-      },
+    // id: {
+    //   type: Schema.Types.ObjectId
+    // },
     name: {
       type: String,
       required: [true, 'User must have a name'],
@@ -42,6 +42,13 @@ const userSchema = new Schema(
       type: String,
       minlength: [3, 'Name must be at least 3 characters long'],
       maxlength: [10, 'Name must be maximum 10 characters long'],
+    },
+    consultings: {
+      type: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Consulting',
+      }],
+        required: false,
     },
     validateToken: {
       type: String,

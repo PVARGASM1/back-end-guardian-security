@@ -21,13 +21,18 @@ const consultingSchema = new Schema(
     },
 		menssage: {
 			type: String,
-			minlength: [10, 'Name must be at least 10 characters long'],
+			minlength: [1, 'Name must be at least 1 characters long'],
       maxlength: [100, 'Name must be maximum 100 characters long'],
 		},
 		services: {
 			type: String,
 			required: true,
-		}
+		},
+    user: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
+			required: true
+    }
   },
   {
     timestamps: true,
@@ -35,6 +40,6 @@ const consultingSchema = new Schema(
   },
 );
 
-const consulting = model('consulting', consultingSchema);
+const Consulting = model('consulting', consultingSchema);
 
-module.exports = consulting;
+module.exports = Consulting;

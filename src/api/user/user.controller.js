@@ -26,7 +26,7 @@ const getUserByIdHandler = async (req, res) => {
 
     res.status(200).json({ message: 'User found', user });
   } catch ({ message }) {
-    res.status(400).json({ message: 'Users could not be found', error: message });
+    res.status(400).json({ message: 'User could not be found', error: message });
   }
 }
 

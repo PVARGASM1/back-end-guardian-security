@@ -7,8 +7,8 @@ const {
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
-		user: 'app.guardian2023@gmail.com',
-		pass: 'cfcw xfcw mjbf uixt',
+		user: process.env.MAIN_EMAIL,
+		pass: process.env.MAIN_EMAIL_PASS,
 	}
 })
 
@@ -32,12 +32,54 @@ const createConsultingHandler = async (req, res) => {
 		user.consultings.unshift(consulting)
 		await user.save({validateBeforeSave: false});
 
+		const styles = {
+			container: `
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			border: 1px solid #e0e0e0;
+			`,
+			title: `
+				text-align: center;
+				font-size: 2rem;
+				color: #02375A ;
+			`,
+			paragraph: `
+			text-align: center;
+			font-size: 18px;
+			color: black ;
+			`,
+		}
+ 
 		const mailOptions = {
-			from: 'app.guardian2023@gmail.com',
+			from: 'Guardian Security <app.guardian2023@gmail.com>',
 			to: newConsulting.email,
-			subject: `Consultoria registrada ${name} para ${services}`,
-			html: `<p>Se ha generado una consultoria de ${name} o ${company}
-							contacta a ${email}</p>`
+			subject: `Consultoria registrada para ${name}`,
+			html:` 
+			<div style='${styles.container}'>
+				
+				<h1 style='${styles.title}'>Tu consultoría en ${services} fue registrada</h1>
+				<br />
+				<h2 style='${styles.paragraph}'>
+					Se ha generado una consultoria para ${name} o ${company} 
+					un consultor te contactará para más realizar la
+					consultoría personalizada y suministrar más información.
+				</h2>
+				<br />
+				<br />
+				<p style='${styles.title}'>Gracias por confíar en nuestros servicios.</p>
+				
+			</div>
+			 `, 
+			text: `Bienvenido a Guardian Security App`,
+			attachments: [
+				{
+					filename: 'LogoSinBack.png',
+					path: 'src/public/LogoSinBack.png',
+				}
+			]
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => { 
@@ -55,21 +97,6 @@ const createConsultingHandler = async (req, res) => {
     res.status(401).json({ message: 'Consulting could not be created', error: message });
 	}
 }
-
-// const getAllConsultingHandler = (req, res) => {
-//   try {
-// 	const {
-// 		name, 
-// 		company, 
-// 		email, 
-// 		phone, 
-// 		message, 
-// 		services
-// 	} = req.body;
-// 	} catch {
-
-// 	}
-// }
 
 module.exports = { 
 	createConsultingHandler

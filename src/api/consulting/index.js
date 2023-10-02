@@ -6,7 +6,7 @@ const {
 
 
 //api/consultings
-router.route('/:userId').post(createConsultingHandler);
+router.route('/:id').post(createConsultingHandler);
 
 //api/consulting
 // router.route('/').get(getAllConsultingHandler);

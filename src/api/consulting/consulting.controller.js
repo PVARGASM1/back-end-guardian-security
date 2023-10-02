@@ -14,10 +14,10 @@ const transporter = nodemailer.createTransport({
 
 const createConsultingHandler = async (req, res) => {
 	try {
-		const { userId } = req.params
+		const { id } = req.params
 		const { name, company, email, phone, message, services} = req.body;
 
-		const user = await User.findById(userId)
+		const user = await User.findById(id)
 
 		const newConsulting = { 
 			name,
@@ -26,7 +26,7 @@ const createConsultingHandler = async (req, res) => {
 			phone,
 			message,
 			services, 
-			user: userId
+			user: id
 		}
 		const consulting = await createConsulting(newConsulting);
 		user.consultings.unshift(consulting)

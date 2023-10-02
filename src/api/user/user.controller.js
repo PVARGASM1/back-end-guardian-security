@@ -59,17 +59,9 @@ const createUserHandler = async (req, res) => {
 const updateUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, password, phone, address } = req.body;
+    const body = req.body;
 
-    const newUser = {
-      name,
-      email,
-      password,
-      phone,
-      address
-    }
-    console.log(newUser);
-    const updatedUser = await updateUser(id, newUser);
+    const updatedUser = await updateUser(id, body);
 
     res.status(201).json({ message: 'User was updated', user: updatedUser });
   } catch ({ message }) {

@@ -16,12 +16,12 @@ const consultingSchema = new Schema(
     },
     phone: {
       type: String,
-      minlength: [5, 'Name must be at least 5 characters long'],
+      minlength: [0, 'Name must be at least 0 characters long'],
       maxlength: [10, 'Name must be maximum 10 characters long'],
     },
 		message: {
 			type: String,
-			minlength: [1, 'Name must be at least 1 characters long'],
+			minlength: [0, 'Name must be at least 0 characters long'],
       maxlength: [100, 'Name must be maximum 100 characters long'],
 		},
 		services: {

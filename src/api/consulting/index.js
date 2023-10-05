@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const { 
-    createConsultingHandler 
-  
+    createConsultingHandler, 
+    getConsultingByUserIdHandler
 } = require('./consulting.controller.js');
 
 
-//api/consultings
+//api/consulting/:id
 router.route('/:id').post(createConsultingHandler);
 
-//api/consulting
-// router.route('/').get(getAllConsultingHandler);
+//api/consulting/:userId
+router.route('/:id').get(getConsultingByUserIdHandler);
 
 module.exports = router;

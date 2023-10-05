@@ -1,8 +1,10 @@
 const User = require('../user/user.model')
 const nodemailer = require('nodemailer');
+const { getUserById } = require('../user/user.service')
 const {
 	createConsulting
-} = require('./consulting.service')
+} = require('./consulting.service');
+const Consulting = require('./consulting.model');
 
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
@@ -98,9 +100,27 @@ const createConsultingHandler = async (req, res) => {
 	}
 }
 
+const getConsultingByUserIdHandler = async (req, res) => {
+  try {
+	  const { id } = req.params;
 
+	  const user = await getUserById(id);
+
+	  if (!user) {
+		return res.status(404).json({ message: 'Usuario no encontrado' });
+	  }
+
+      const consulting = await Consulting.findOne({ user: user._id });
+    
+	  res.status(200).json({ message: 'Consulting found', consulting });
+
+  } catch ({ message }) {
+		res.status(400).json({ message: 'Consulting could not be found', error: message });
+  }
+}
 
 
 module.exports = { 
-	createConsultingHandler
+	createConsultingHandler,
+	getConsultingByUserIdHandler
 }
